@@ -6,7 +6,26 @@
     </shared>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c08286f-fac9-43bc-b06a-e51322d3b785" name="Default" comment="" />
+    <list default="true" id="2c08286f-fac9-43bc-b06a-e51322d3b785" name="Default" comment="">
+      <change type="DELETED" beforePath="C:\Users\Derek\AndroidWork\Youniversity\.gradle\2.2.1\taskArtifacts\cache.properties" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Derek\AndroidWork\Youniversity\.gradle\2.2.1\taskArtifacts\cache.properties.lock" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Derek\AndroidWork\Youniversity\.gradle\2.2.1\taskArtifacts\fileHashes.bin" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Derek\AndroidWork\Youniversity\.gradle\2.2.1\taskArtifacts\fileSnapshots.bin" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Derek\AndroidWork\Youniversity\.gradle\2.2.1\taskArtifacts\outputFileStates.bin" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Derek\AndroidWork\Youniversity\.gradle\2.2.1\taskArtifacts\taskArtifacts.bin" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Derek\AndroidWork\Youniversity\.idea\.name" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Derek\AndroidWork\Youniversity\.idea\compiler.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Derek\AndroidWork\Youniversity\.idea\copyright\profiles_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Derek\AndroidWork\Youniversity\.idea\encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Derek\AndroidWork\Youniversity\.idea\gradle.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Derek\AndroidWork\Youniversity\.idea\misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Derek\AndroidWork\Youniversity\.idea\modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Derek\AndroidWork\Youniversity\.idea\vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Derek\AndroidWork\Youniversity\.idea\workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Derek\AndroidWork\Youniversity\Youniversity.iml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Derek\AndroidWork\Youniversity\app\app.iml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Derek\AndroidWork\Youniversity\local.properties" afterPath="" />
+    </list>
     <ignored path="Youniversity.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -33,27 +52,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MainMenu.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MainMenu.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/hacktech/youniversity/MainMenu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="0.16545455">
               <caret line="17" column="51" selection-start-line="17" selection-start-column="51" selection-end-line="17" selection-end-column="51" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_main_menu.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="activity_main_menu.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main_menu.xml">
           <provider editor-type-id="android-designer">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.26103646">
-              <caret line="8" column="47" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="47" />
-              <folding>
-                <element signature="e#492#513#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="-6.448276">
+              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -1406,7 +1423,10 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="ProjectPane" />
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -1459,9 +1479,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1684,10 +1701,46 @@
       </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="47" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/hacktech/youniversity/MainMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="17" column="51" selection-start-line="17" selection-start-column="51" selection-end-line="17" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main_menu.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="47" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/hacktech/youniversity/MainMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="17" column="51" selection-start-line="17" selection-start-column="51" selection-end-line="17" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main_menu.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
           <caret line="7" column="57" selection-start-line="7" selection-start-column="57" selection-end-line="7" selection-end-column="57" />
-          <folding>
-            <element signature="e#492#513#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1706,9 +1759,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="7" column="57" selection-start-line="7" selection-start-column="57" selection-end-line="7" selection-end-column="57" />
-          <folding>
-            <element signature="e#492#513#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1727,9 +1778,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="7" column="57" selection-start-line="7" selection-start-column="57" selection-end-line="7" selection-end-column="57" />
-          <folding>
-            <element signature="e#492#513#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1748,9 +1797,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="7" column="57" selection-start-line="7" selection-start-column="57" selection-end-line="7" selection-end-column="57" />
-          <folding>
-            <element signature="e#492#513#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1769,9 +1816,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-          <folding>
-            <element signature="e#492#513#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1790,30 +1835,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-          <folding>
-            <element signature="e#492#513#0" expanded="true" />
-          </folding>
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main_menu.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.448276">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/hacktech/youniversity/MainMenu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.16545455">
           <caret line="17" column="51" selection-start-line="17" selection-start-column="51" selection-end-line="17" selection-end-column="51" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main_menu.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26103646">
-          <caret line="8" column="47" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="47" />
-          <folding>
-            <element signature="e#492#513#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
