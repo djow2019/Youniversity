@@ -20,8 +20,8 @@ local.properties
 .project
 
 # Android Studio
-.idea/*.*
-.idea\*.*
+.idea/
+.idea\
 .gradle
 /*/local.properties
 /*/out
