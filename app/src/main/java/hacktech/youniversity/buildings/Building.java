@@ -1,10 +1,12 @@
-package hacktech.youniversity;
+package hacktech.youniversity.buildings;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 import graphics.Tile;
+import hacktech.youniversity.Coordinate;
+import hacktech.youniversity.R;
 
 /**
  * Created by Derek on 2/27/2016.
@@ -18,8 +20,6 @@ public abstract class Building {
 
     private Drawable background;
 
-    public static final int LECTURE_HALL = 10;
-
     protected Context c;
 
     public Building(Context c, int price, String name, Coordinate coord, int type) {
@@ -29,8 +29,11 @@ public abstract class Building {
         this.coord = coord;
 
         switch (type) {
-            case LECTURE_HALL:
+            case Tile.LECTURE_HALL:
                 background = c.getResources().getDrawable(R.drawable.lecture_hall, null);
+                break;
+            case Tile.DINING_HALL:
+                background = c.getResources().getDrawable(R.drawable.food_building, null);
                 break;
         }
 

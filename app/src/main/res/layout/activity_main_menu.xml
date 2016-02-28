@@ -15,7 +15,8 @@
         android:id="@+id/button_new"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="250dp"
         android:background="@drawable/new_button"
         android:onClick="onNewClicked" />
 
@@ -23,6 +24,7 @@
         android:id="@+id/button_load"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/load_button"
         android:onClick="onLoadClicked" />
 
@@ -30,9 +32,9 @@
         android:id="@+id/button_options"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/options_button"
-        android:onClick="onOptionsClicked"
-         />
+        android:onClick="onOptionsClicked" />
 
     <ImageView
         android:id="@+id/button_quit"

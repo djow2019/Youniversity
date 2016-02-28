@@ -11,5 +11,11 @@
         android:background="@drawable/hammer"
         android:onClick="onBuildClicked"></ImageView>
 
+    <ImageView
+        android:layout_width="@dimen/action_bar_size"
+        android:layout_height="@dimen/action_bar_size"
+        android:background="@drawable/settings_button"
+        android:onClick="onSettingsClicked"></ImageView>
+
 
 </LinearLayout>

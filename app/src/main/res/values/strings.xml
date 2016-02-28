@@ -5,4 +5,8 @@
     <string name="action_settings">Settings</string>
 
     <string name="newConfirmation">Are you sure you want to rebuild your university?</string>
+
+    <string name="lecture_hall_num">10</string>
+    <string name="dining_hall_num">11</string>
+
 </resources>
