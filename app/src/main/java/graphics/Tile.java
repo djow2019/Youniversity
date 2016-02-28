@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import hacktech.youniversity.Coordinate;
 import hacktech.youniversity.Gameplay;
+import hacktech.youniversity.Profile;
 import hacktech.youniversity.R;
 import hacktech.youniversity.buildings.Building;
 import hacktech.youniversity.buildings.DiningHall;
@@ -20,6 +21,7 @@ import hacktech.youniversity.buildings.LectureHall;
 import hacktech.youniversity.buildings.Pool;
 import hacktech.youniversity.buildings.ResidenceHall;
 import hacktech.youniversity.buildings.Road;
+import hacktech.youniversity.platform.YouniversityPlatform;
 
 
 /**
@@ -147,42 +149,6 @@ public class Tile extends ImageView {
                 final EditText input = new EditText(getContext());
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
                 builder.setView(input);
-
-                /* Called when the build button is pressed */
-                builder.setPositiveButton("Build!", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (Gameplay.lastTypeClicked) {
-
-                            case LECTURE_HALL:
-                                building = new LectureHall(getContext(), input.getText().toString(), coord);
-                                type = Tile.LECTURE_HALL;
-                                break;
-                            case DINING_HALL:
-                                building = new DiningHall(getContext(), input.getText().toString(), coord);
-                                type = Tile.DINING_HALL;
-                                break;
-                            case RESIDENCE_HALL:
-                                building = new ResidenceHall(getContext(), input.getText().toString(), coord);
-                                type = Tile.RESIDENCE_HALL;
-                                break;
-                            case GYM:
-                                building = new Gym(getContext(), input.getText().toString(), coord);
-                                type = Tile.GYM;
-                                break;
-                            case POOL:
-                                building = new Pool(getContext(), input.getText().toString(), coord);
-                                type = Tile.POOL;
-                                break;
-                            case ROAD:
-                                building = new Road(getContext(), input.getText().toString(), coord);
-                                type = Tile.ROAD;
-                                break;
-
-                        }
-                        updateBackground();
-                    }
-                });
                 /* Does nothing */
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
@@ -191,34 +157,84 @@ public class Tile extends ImageView {
                     }
                 });
 
+                int requiredPrice = 0;
+
                 /* Customizes the popup window */
                 switch (Gameplay.lastTypeClicked) {
 
                     case LECTURE_HALL:
                         builder.setTitle("Build Lecture Hall");
-                        builder.setMessage(LectureHall.description);
+                        builder.setMessage(LectureHall.description());
+                        requiredPrice = LectureHall.cost;
                         break;
                     case DINING_HALL:
                         builder.setTitle("Build Dining Hall");
-                        builder.setMessage(DiningHall.description);
+                        builder.setMessage(DiningHall.description());
+                        requiredPrice = DiningHall.cost;
                         break;
 
                     case RESIDENCE_HALL:
                         builder.setTitle("Build Residence Hall");
-                        builder.setMessage(ResidenceHall.description);
+                        builder.setMessage(ResidenceHall.description());
+                        requiredPrice = ResidenceHall.cost;
                         break;
                     case GYM:
                         builder.setTitle("Build Gym");
-                        builder.setMessage(Gym.description);
+                        builder.setMessage(Gym.description());
+                        requiredPrice = Gym.cost;
                         break;
                     case POOL:
                         builder.setTitle("Build Pool");
-                        builder.setMessage(Pool.description);
+                        builder.setMessage(Pool.description());
+                        requiredPrice = Pool.cost;
                         break;
                     case ROAD:
                         builder.setTitle("Build Road");
-                        builder.setMessage(Road.description);
+                        builder.setMessage(Road.description());
+                        requiredPrice = Road.cost;
                         break;
+
+                }
+                /* Only enable build if the person has enough money */
+                if (requiredPrice <= YouniversityPlatform.profile.getBalance()) {
+
+                    /* Called when the build button is pressed */
+                    builder.setPositiveButton("Build!", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (Gameplay.lastTypeClicked) {
+
+                                case LECTURE_HALL:
+                                    building = new LectureHall(getContext(), input.getText().toString(), coord);
+                                    type = Tile.LECTURE_HALL;
+                                    break;
+                                case DINING_HALL:
+                                    building = new DiningHall(getContext(), input.getText().toString(), coord);
+                                    type = Tile.DINING_HALL;
+                                    break;
+                                case RESIDENCE_HALL:
+                                    building = new ResidenceHall(getContext(), input.getText().toString(), coord);
+                                    type = Tile.RESIDENCE_HALL;
+                                    break;
+                                case GYM:
+                                    building = new Gym(getContext(), input.getText().toString(), coord);
+                                    type = Tile.GYM;
+                                    break;
+                                case POOL:
+                                    building = new Pool(getContext(), input.getText().toString(), coord);
+                                    type = Tile.POOL;
+                                    break;
+                                case ROAD:
+                                    building = new Road(getContext(), input.getText().toString(), coord);
+                                    type = Tile.ROAD;
+                                    break;
+
+                            }
+                            /* Decrease the balance */
+                            YouniversityPlatform.profile.withdraw(building.getPrice());
+                            updateBackground();
+                        }
+                    });
 
                 }
                 builder.show();
@@ -231,10 +247,11 @@ public class Tile extends ImageView {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("Delete " + building.getName());
                 builder.setMessage("Are you sure you want to remove " + building.getName() + "?" +
-                        "\n It will cose you $" + building.getPrice() / 2);
+                        "\n It will cost you $" + building.getPrice() / 2);
                 builder.setPositiveButton("Demolish", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        YouniversityPlatform.profile.removeStudentSpotsAvailable(building.getMaxOccupancy());
                         building = null;
                         type = Tile.GRASS;
                         updateBackground();

@@ -4,17 +4,22 @@ import android.content.Context;
 
 import graphics.Tile;
 import hacktech.youniversity.Coordinate;
+import hacktech.youniversity.Profile;
 
 /**
  * Created by Derek on 2/28/2016.
  */
 public class Pool extends Building {
 
-    public static final String description = "Let your students cool off on a hot summer day with an luxurious swimming pool!" +
-            "\nMax Occupancy: 20 \nPrice: 500000";
+    public static int cost = 500000;
 
     public Pool(Context c, String name, Coordinate coord) {
-        super(c, 500000, name, coord, Tile.POOL);
+        super(c, cost, name, coord, Tile.POOL, 20);
 
+    }
+
+    public static String description() {
+        return "Let your students cool off on a hot summer day with an luxurious swimming pool!" +
+                "\nMax Occupancy: 20 \nPrice: $500000 Your balance: $" + profile.getBalance();
     }
 }

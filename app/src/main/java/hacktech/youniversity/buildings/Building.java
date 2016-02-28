@@ -5,27 +5,35 @@ import android.graphics.drawable.Drawable;
 
 import graphics.Tile;
 import hacktech.youniversity.Coordinate;
+import hacktech.youniversity.Profile;
 import hacktech.youniversity.R;
+import hacktech.youniversity.platform.YouniversityPlatform;
 
 /**
  * Created by Derek on 2/27/2016.
  */
 public abstract class Building {
 
-    private int price;
+    public int price;
     private String name;
     private int occupancy;
     private Coordinate coord;
+    private int maxOccupancy;
+
+    protected static Profile profile = YouniversityPlatform.profile;
 
     private Drawable background;
 
     protected Context c;
 
-    public Building(Context c, int price, String name, Coordinate coord, int type) {
+    public Building(Context c, int price, String name, Coordinate coord, int type, int max) {
         this.price = price;
         this.name = name;
         this.occupancy = 0;
         this.coord = coord;
+        this.maxOccupancy = max;
+
+        profile.addStudentSpotsAvailable(maxOccupancy);
 
         switch (type) {
             case Tile.LECTURE_HALL:
@@ -57,6 +65,10 @@ public abstract class Building {
 
     public String toString() {
         return "Name: " + name + " Value: " + price + " Occupancy: " + occupancy;
+    }
+
+    public int getMaxOccupancy() {
+        return maxOccupancy;
     }
 
     public int getPrice() {

@@ -26,14 +26,18 @@
     <ImageView
         android:layout_width="@dimen/action_bar_size"
         android:layout_height="@dimen/action_bar_size"
+        android:background="@drawable/businesses_button"
+        android:onClick="onBusinessClicked"></ImageView>
+
+    <ImageView
+        android:layout_width="@dimen/action_bar_size"
+        android:layout_height="@dimen/action_bar_size"
         android:background="@drawable/profile_button"
         android:onClick="onProfileClicked"></ImageView>
 
     <ImageView
         android:layout_width="@dimen/action_bar_size"
-        android:layout_height="@dimen/action_bar_size"
-        android:background="@drawable/businesses_button"
-        android:onClick="onBusinessClicked"></ImageView>
+        android:layout_height="@dimen/action_bar_size"></ImageView>
 
     <ImageView
         android:layout_width="@dimen/action_bar_size"

@@ -16,6 +16,7 @@ import android.widget.ScrollView;
 import java.util.Random;
 
 import graphics.Tile;
+import hacktech.youniversity.platform.YouniversityPlatform;
 
 /**
  * Created by Derek on 2/27/2016.
@@ -306,6 +307,12 @@ public class Gameplay extends Activity {
 
     /* Called when profile is clicked */
     public void onProfileClicked(View view) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(YouniversityPlatform.profile.getUserName());
+        builder.setMessage(YouniversityPlatform.profile.toString());
+        builder.setPositiveButton("Okay", null);
+        builder.show();
 
     }
 

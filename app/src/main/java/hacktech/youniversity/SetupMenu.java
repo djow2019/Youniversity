@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import hacktech.youniversity.platform.YouniversityPlatform;
+
 /**
  * Created by Derek on 2/27/2016.
  * Initializes the university name and user name, introduces the game
@@ -28,7 +30,7 @@ public class SetupMenu extends Activity {
         EditText user = (EditText) findViewById(R.id.user_name);
         EditText university = (EditText) findViewById(R.id.university_name);
 
-        new Profile(user.getText().toString(), university.getText().toString());
+        YouniversityPlatform.profile = new Profile(user.getText().toString(), university.getText().toString());
 
         startActivity(new Intent(getApplicationContext(), Gameplay.class));
 
