@@ -23,4 +23,8 @@ public class DiningHall extends Building {
                 "\nMax Occupancy: 30 \nPrice: $50000 Your balance: $" + profile.getBalance() +
                 "\n*Prices and foods are customizable.";
     }
+
+    public String toString() {
+        return "Type: Dining Hall " + super.toString();
+    }
 }

@@ -22,5 +22,9 @@ public class Gym extends Building {
         return "Get your kids in shape!" +
                 "\nMax Occupancy: 30 \nPrice: $300000 Your balance: $" + profile.getBalance() + " \n*Equipment is customizable";
     }
+
+    public String toString() {
+        return "Type: Gym " + super.toString();
+    }
 }
 

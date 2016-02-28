@@ -23,4 +23,8 @@ public class LectureHall extends Building {
                 "\nMax Occupancy: 100 \nPrice: $250000 Your balance: $" + profile.getBalance() +
                 "\n*Classes and Professors are customizable";
     }
+
+    public String toString() {
+        return "Type: Lecture Hall " + super.toString();
+    }
 }

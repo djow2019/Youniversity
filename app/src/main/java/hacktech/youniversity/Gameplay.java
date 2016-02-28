@@ -16,6 +16,13 @@ import android.widget.ScrollView;
 import java.util.Random;
 
 import graphics.Tile;
+import hacktech.youniversity.buildings.Building;
+import hacktech.youniversity.buildings.DiningHall;
+import hacktech.youniversity.buildings.Gym;
+import hacktech.youniversity.buildings.LectureHall;
+import hacktech.youniversity.buildings.Pool;
+import hacktech.youniversity.buildings.ResidenceHall;
+import hacktech.youniversity.buildings.Road;
 import hacktech.youniversity.platform.YouniversityPlatform;
 
 /**
@@ -74,6 +81,8 @@ public class Gameplay extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.gameplay_screen);
+
+        YouniversityPlatform.inGame = true;
 
         /* Hide the original action bar */
         getActionBar().hide();
@@ -303,6 +312,19 @@ public class Gameplay extends Activity {
     /* Called when finances is clicked */
     public void onFinancesClicked(View view) {
 
+        Profile p = YouniversityPlatform.profile;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Finances");
+
+        String body = "Current balance: " + p.getBalance() +
+                "\nEarning: "  + (p.getIncome() + p.getExpenses()) +
+                "\nLosing: " + p.getExpenses() +
+                "\nNet Profit: " + p.getIncome();
+
+        builder.setMessage(body);
+        builder.setPositiveButton("Okay", null);
+        builder.show();
     }
 
     /* Called when profile is clicked */
@@ -340,6 +362,43 @@ public class Gameplay extends Activity {
 
     /* Called when business is clicked */
     public void onBusinessClicked(View view) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Businesses");
+        String format = "Lecture Halls\n";
+
+        for (Building building : YouniversityPlatform.profile.getBuildings()) {
+            if (building instanceof LectureHall)
+                format += building.toString() + "\n";
+        }
+        format += "\nResidence Halls\n";
+        for (Building building : YouniversityPlatform.profile.getBuildings()) {
+            if (building instanceof ResidenceHall)
+                format += building.toString() + "\n";
+        }
+        format += "\nDining Halls\n";
+        for (Building building : YouniversityPlatform.profile.getBuildings()) {
+            if (building instanceof DiningHall)
+                format += building.toString() + "\n";
+        }
+        format += "\nGyms\n";
+        for (Building building : YouniversityPlatform.profile.getBuildings()) {
+            if (building instanceof Gym)
+                format += building.toString() + "\n";
+        }
+        format += "\nPools\n";
+        for (Building building : YouniversityPlatform.profile.getBuildings()) {
+            if (building instanceof Pool)
+                format += building.toString() + "\n";
+        }
+        format += "\nRoads\n";
+        for (Building building : YouniversityPlatform.profile.getBuildings()) {
+            if (building instanceof Road)
+                format += building.toString() + "\n";
+        }
+        builder.setMessage(format);
+        builder.setPositiveButton("Okay", null);
+        builder.show();
 
     }
 

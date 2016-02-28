@@ -251,7 +251,7 @@ public class Tile extends ImageView {
                 builder.setPositiveButton("Demolish", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        YouniversityPlatform.profile.removeStudentSpotsAvailable(building.getMaxOccupancy());
+                        building.demolish();
                         building = null;
                         type = Tile.GRASS;
                         updateBackground();

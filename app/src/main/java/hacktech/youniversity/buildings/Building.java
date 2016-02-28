@@ -34,6 +34,7 @@ public abstract class Building {
         this.maxOccupancy = max;
 
         profile.addStudentSpotsAvailable(maxOccupancy);
+        profile.addBuilding(this);
 
         switch (type) {
             case Tile.LECTURE_HALL:
@@ -60,11 +61,13 @@ public abstract class Building {
 
     public void demolish() {
         coord = null;
-        // to be implemented later
+        profile.removeBuilding(this);
+        profile.removeStudentSpotsAvailable(getMaxOccupancy());
     }
 
     public String toString() {
-        return "Name: " + name + " Value: " + price + " Occupancy: " + occupancy;
+        return "Name: " + getName() + " Value: $" + getPrice() + " Coord: " + getCoordinate() +
+                " Occupancy: " + getOccupancy() + "/" + getMaxOccupancy();
     }
 
     public int getMaxOccupancy() {

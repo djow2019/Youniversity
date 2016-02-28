@@ -20,9 +20,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="chancellor@collegeboard.usa"
+            android:autoText="false"
+            android:text="newchancellor@collegeboard.usa"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="25dp" />
+            android:textSize="20dp"
+            android:textStyle="italic"
+            android:typeface="serif" />
     </LinearLayout>
 
     <LinearLayout
@@ -43,9 +46,11 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="chancellor@collegeboard.usa"
+            android:text="chancellorboard@collegeboard.usa"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="25dp" />
+            android:textSize="20dp"
+            android:textStyle="italic"
+            android:typeface="serif" />
     </LinearLayout>
 
     <LinearLayout
@@ -69,6 +74,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:background="#ffc8c8c8"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="horizontal">
 
         <TextView
@@ -80,9 +87,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Grant to build university approved"
+            android:text="University Grant Status: Approved!"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="25dp" />
+            android:textSize="22dp"
+            android:typeface="serif" />
     </LinearLayout>
 
     <ScrollView
@@ -99,62 +107,76 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="129dp"
-                android:layout_height="129dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_gravity="center"
                 android:background="@drawable/avatar" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/description"
+                android:layout_width="575dp"
                 android:layout_height="wrap_content"
-                android:text="Dear recipient,\n We are happy to announce that you have been approved to build your own university this fall.
-                \nYou have been given a grant of $500,000 to begin your timely construction. I will be checking your progress to assist you as you begin your journey as grand chancellor of"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:nextFocusLeft="@id/description"
+                android:nextFocusUp="@id/description"
+                android:paddingLeft="15dp"
+                android:text="  Dear recipient,\n    We are happy to announce that you have been\n    approved to build your own university this fall.                 \n    You have been given a grant of $500,000 to begin \n    your timely construction. I will be checking your \n    progress to assist you as you begin your journey as \n    grand chancellor of"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="20dp"
+                android:typeface="serif" />
 
             <EditText
                 android:id="@+id/university_name"
-                android:layout_width="match_parent"
+                android:layout_width="350dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
+                android:gravity="center_horizontal"
                 android:hint="Enter University name here"
-                android:textSize="25dp" />
+                android:textSize="20dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="University. I wish you best of luck, "
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:text="       University. I wish you best of luck, "
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="20dp" />
 
             <EditText
                 android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
                 android:hint="Enter your name here"
-                android:textSize="25dp" />
+                android:textSize="20dp"
+                android:gravity="center_horizontal" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="Sincerely, "
-                android:textSize="25dp" />
+                android:layout_gravity="left|right"
+                android:text="       Sincerely, "
+                android:textSize="20dp"
+                android:typeface="serif" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="Dr. Hong"
-                android:textSize="25dp" />
+                android:layout_gravity="left|right"
+                android:text="       Dr. Hong"
+                android:textSize="20dp"
+                android:typeface="serif" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
+                android:layout_gravity="center_horizontal"
                 android:onClick="onCloseClicked"
-                android:text="Close"
+                android:text="Accept Grant!"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="25dp" />
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:typeface="serif" />
 
         </LinearLayout>
 

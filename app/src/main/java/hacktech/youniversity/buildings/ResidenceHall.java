@@ -20,7 +20,11 @@ public class ResidenceHall extends Building {
 
     public static String description() {
         return "A necessity for students traveling from far away, give 'em a place to stay!" +
-                "\nMax Occupancy: 50 \nPrice: $200,000 Your balance: " + profile.getBalance() +
+                "\nMax Occupancy: 50 \nPrice: $200000 Your balance: $" + profile.getBalance() +
                 "\n*RA's and furniture customizable";
+    }
+
+    public String toString() {
+        return "Type: Residence Hall " + super.toString();
     }
 }

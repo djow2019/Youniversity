@@ -23,4 +23,8 @@ public class Road extends Building {
                 "\nPrice: $500 Your balance: $" + profile.getBalance();
     }
 
+    public String toString() {
+        return "Type: Road " + super.toString();
+    }
+
 }

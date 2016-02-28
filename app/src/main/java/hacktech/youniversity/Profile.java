@@ -1,5 +1,9 @@
 package hacktech.youniversity;
 
+import java.util.ArrayList;
+
+import hacktech.youniversity.buildings.Building;
+
 /**
  * Created by Derek on 2/27/2016.
  */
@@ -15,6 +19,8 @@ public class Profile {
 
     private String universityName;
     private String userName;
+
+    private ArrayList<Building> ownedBuildings = new ArrayList<>();
 
     private long lastLogOff;
 
@@ -76,7 +82,7 @@ public class Profile {
     }
 
     public double getIncome() {
-        return getTotalOccupancy() * tuition;
+        return getTotalOccupancy() * tuition - getExpenses();
     }
 
     public int getMaxOccupancy() {
@@ -102,8 +108,32 @@ public class Profile {
         return true;
     }
 
+    /* 1% of the cost of each building each year */
+    public double getExpenses() {
+
+        double cost = 0;
+
+        for (Building building : ownedBuildings) {
+            cost += (0.01) * building.getPrice();
+        }
+
+        return cost;
+    }
+
     public void deposit(double amount) {
         balance += amount;
+    }
+
+    public void addBuilding(Building building) {
+        ownedBuildings.add(building);
+    }
+
+    public void removeBuilding(Building building) {
+        ownedBuildings.remove(building);
+    }
+
+    public ArrayList<Building> getBuildings() {
+        return ownedBuildings;
     }
 
 }

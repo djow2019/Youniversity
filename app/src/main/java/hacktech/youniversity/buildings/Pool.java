@@ -22,4 +22,8 @@ public class Pool extends Building {
         return "Let your students cool off on a hot summer day with an luxurious swimming pool!" +
                 "\nMax Occupancy: 20 \nPrice: $500000 Your balance: $" + profile.getBalance();
     }
+
+    public String toString() {
+        return "Type: Pool " + super.toString();
+    }
 }
