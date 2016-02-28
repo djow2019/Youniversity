@@ -10,12 +10,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import hacktech.youniversity.buildings.Building;
 import hacktech.youniversity.Coordinate;
 import hacktech.youniversity.Gameplay;
 import hacktech.youniversity.R;
+import hacktech.youniversity.buildings.Building;
 import hacktech.youniversity.buildings.DiningHall;
+import hacktech.youniversity.buildings.Gym;
 import hacktech.youniversity.buildings.LectureHall;
+import hacktech.youniversity.buildings.ResidenceHall;
 
 
 /**
@@ -28,6 +30,8 @@ public class Tile extends ImageView {
     public static final int TREE = 2;
     public static final int LECTURE_HALL = 10;
     public static final int DINING_HALL = 11;
+    public static final int RESIDENCE_HALL = 12;
+    public static final int GYM = 13;
 
     /* The building on this tile */
     private Building building;
@@ -111,6 +115,12 @@ public class Tile extends ImageView {
             case DINING_HALL:
                 setBackground(getResources().getDrawable(R.drawable.food_building_o, null));
                 break;
+            case RESIDENCE_HALL:
+                setBackground(getResources().getDrawable(R.drawable.dorm_o, null));
+                break;
+            case GYM:
+                setBackground(getResources().getDrawable(R.drawable.gym_o, null));
+                break;
         }
     }
 
@@ -142,6 +152,14 @@ public class Tile extends ImageView {
                                 building = new DiningHall(getContext(), input.getText().toString(), coord);
                                 type = Tile.DINING_HALL;
                                 break;
+                            case RESIDENCE_HALL:
+                                building = new ResidenceHall(getContext(), input.getText().toString(), coord);
+                                type = Tile.RESIDENCE_HALL;
+                                break;
+                            case GYM:
+                                building = new Gym(getContext(), input.getText().toString(), coord);
+                                type = Tile.GYM;
+                                break;
 
                         }
                         updateBackground();
@@ -167,11 +185,41 @@ public class Tile extends ImageView {
                         builder.setMessage(DiningHall.description);
                         break;
 
+                    case RESIDENCE_HALL:
+                        builder.setTitle("Build Residence Hall");
+                        builder.setMessage(ResidenceHall.description);
+                        break;
+                    case GYM:
+                        builder.setTitle("Build Gym");
+                        builder.setMessage(Gym.description);
+                        break;
+
                 }
                 builder.show();
 
                 /* Tells the gameplay level to reset the action bar */
                 Gameplay.gameplay.onCancelBuildClick(null);
+            } else if (Gameplay.inDemolishMode && !isBuildable()) {
+
+                /* Confirms you want to delete this building*/
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Delete " + building.getName());
+                builder.setMessage("Are you sure you want to remove " + building.getName() + "?" +
+                        "\n It will cose you $" + building.getPrice() / 2);
+                builder.setPositiveButton("Demolish", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        building = null;
+                        type = Tile.GRASS;
+                        updateBackground();
+                    }
+                });
+                builder.setNegativeButton("Cancel", null);
+                builder.show();
+
+                /* Tells the gameplay level to reset the action bar */
+                Gameplay.gameplay.onCancelDemolishClick(null);
+
             } else if (building != null) {
                 /* Displays information aboubt the building*/
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());

@@ -1,25 +1,17 @@
 package hacktech.youniversity;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.media.AudioManager;
-import android.media.Image;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.GridLayout;
-import android.widget.GridView;
-import android.widget.ImageView;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import java.util.Random;
 
@@ -43,6 +35,9 @@ public class Gameplay extends Activity {
     /* Determines whether or not a building can currently be built */
     public static boolean inBuildMode = false;
 
+    /* Determines whether or not a building can be destroyed */
+    public static boolean inDemolishMode = false;
+
     /* Determines the last build type that was clicked */
     public static int lastTypeClicked;
 
@@ -52,7 +47,7 @@ public class Gameplay extends Activity {
     public static Gameplay gameplay;
 
     /* Used to change the action bar at the top */
-    private LinearLayout build_bar, action_bar, settings_bar;
+    private LinearLayout build_bar, action_bar, settings_bar, demolish_bar;
 
     /* Higher the number less likely it spawns */
     private static final int DIRT_CHANCE = 8;
@@ -62,6 +57,13 @@ public class Gameplay extends Activity {
 
     /* Layout of the screen */
     private LinearLayout screen;
+
+    /* Last mousex, mousey */
+    private float mx, my;
+
+    /* Scroll views that handle movement horizontally and vertically */
+    private ScrollView vScroll;
+    private HorizontalScrollView hScroll;
 
     /*
     * Called when activity starts up
@@ -119,6 +121,42 @@ public class Gameplay extends Activity {
         /* Start playing music */
         MainMenu.mPlayer.start();
 
+        vScroll = (ScrollView) findViewById(R.id.vScroll);
+        hScroll = (HorizontalScrollView) findViewById(R.id.hScroll);
+    }
+
+    /* Top of the touch event chain, fires first and trickles down after the scroll views fire
+     * their touch events. Then, it changes the position to move diagonally.
+     */
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        super.dispatchTouchEvent(event);
+        /* currentx and current y*/
+        float curX = 0, curY = 0;
+
+        switch (event.getAction()) {
+
+            case MotionEvent.ACTION_DOWN:
+                mx = event.getX();
+                my = event.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                curX = event.getX();
+                curY = event.getY();
+                vScroll.scrollBy((int) (mx - curX), (int) (my - curY));
+                hScroll.scrollBy((int) (mx - curX), (int) (my - curY));
+                mx = curX;
+                my = curY;
+                break;
+            case MotionEvent.ACTION_UP:
+                curX = event.getX();
+                curY = event.getY();
+                vScroll.scrollBy((int) (mx - curX), (int) (my - curY));
+                hScroll.scrollBy((int) (mx - curX), (int) (my - curY));
+                break;
+        }
+
+        return true;
     }
 
     /* Called when build is clicked */
@@ -229,6 +267,68 @@ public class Gameplay extends Activity {
         builder.setNegativeButton("Cancel", null);
         builder.show();
 
+    }
+
+    /* Called when demolish is clicked */
+    public void onDemolishClicked(View view) {
+
+        inDemolishMode = true;
+
+        /* Update the action bars */
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                screen.removeView(action_bar);
+
+                if (demolish_bar == null)
+                    demolish_bar = (LinearLayout) getLayoutInflater().inflate(R.layout.demolish_bar, null);
+
+                screen.addView(demolish_bar, 0);
+
+                /* Give all the tiles an outline if they are possible targets */
+                for (int i = 0; i < map.getChildCount(); i++) {
+                    Tile t = (Tile) map.getChildAt(i);
+                    t.drawOutline();
+                    if (t.getBuilding() == null)
+                        t.disable();
+                }
+
+            }
+        });
+
+    }
+
+    /* Called when finances is clicked */
+    public void onFinancesClicked(View view) {
+
+    }
+
+    /* Called when profile is clicked */
+    public void onProfileClicked(View view) {
+
+    }
+
+    /* Called when you cancel demolition */
+    public void onCancelDemolishClick(View view) {
+
+        inDemolishMode = false;
+
+        /* Update the action bars */
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                screen.removeView(demolish_bar);
+                screen.addView(action_bar, 0);
+
+                /* Update any tiles that have been disabled */
+                for (int i = 0; i < map.getChildCount(); i++) {
+                    ((Tile) map.getChildAt(i)).enable();
+                }
+
+            }
+        });
     }
 
 }

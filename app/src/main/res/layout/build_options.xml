@@ -32,16 +32,16 @@
         android:id="@+id/build_residence_hall"
         android:layout_width="@dimen/action_bar_size"
         android:layout_height="@dimen/action_bar_size"
-        android:background="@drawable/lecture_hall_b"
+        android:background="@drawable/dorm_b"
         android:onClick="onBuildingModeClicked"
-        android:tag="@string/lecture_hall_num" />
+        android:tag="@string/residence_hall_num" />
 
     <ImageView
         android:id="@+id/build_gym"
         android:layout_width="@dimen/action_bar_size"
         android:layout_height="@dimen/action_bar_size"
-        android:background="@drawable/food_building_b"
+        android:background="@drawable/gym_b"
         android:onClick="onBuildingModeClicked"
-        android:tag="@string/dining_hall_num" />
+        android:tag="@string/gym_num" />
 
 </LinearLayout>

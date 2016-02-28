@@ -14,6 +14,24 @@
     <ImageView
         android:layout_width="@dimen/action_bar_size"
         android:layout_height="@dimen/action_bar_size"
+        android:background="@drawable/demolish_button"
+        android:onClick="onDemolishClicked"></ImageView>
+
+    <ImageView
+        android:layout_width="@dimen/action_bar_size"
+        android:layout_height="@dimen/action_bar_size"
+        android:background="@drawable/finances_button"
+        android:onClick="onFinancesClicked"></ImageView>
+
+    <ImageView
+        android:layout_width="@dimen/action_bar_size"
+        android:layout_height="@dimen/action_bar_size"
+        android:background="@drawable/profile_button"
+        android:onClick="onProfileClicked"></ImageView>
+
+    <ImageView
+        android:layout_width="@dimen/action_bar_size"
+        android:layout_height="@dimen/action_bar_size"
         android:background="@drawable/settings_button"
         android:onClick="onSettingsClicked"></ImageView>
 

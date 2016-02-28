@@ -8,5 +8,7 @@
 
     <string name="lecture_hall_num">10</string>
     <string name="dining_hall_num">11</string>
+    <string name="residence_hall_num">12</string>
+    <string name="gym_num">13</string>
 
 </resources>

@@ -2,7 +2,6 @@ package hacktech.youniversity.buildings;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.widget.ImageView;
 
 import graphics.Tile;
 import hacktech.youniversity.Coordinate;
@@ -34,6 +33,12 @@ public abstract class Building {
                 break;
             case Tile.DINING_HALL:
                 background = c.getResources().getDrawable(R.drawable.food_building, null);
+                break;
+            case Tile.RESIDENCE_HALL:
+                background = c.getResources().getDrawable(R.drawable.dorm, null);
+                break;
+            case Tile.GYM:
+                background = c.getResources().getDrawable(R.drawable.gym, null);
                 break;
         }
 
