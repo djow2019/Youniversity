@@ -18,6 +18,11 @@ public class Profile {
     private String universityName;
     private String userName;
 
+    private long lastLogOff;
+
+    /* income per in game year */
+    private double income;
+
     public Profile(String userName, String universityName) {
 
         this.universityName = universityName;

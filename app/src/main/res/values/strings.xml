@@ -10,5 +10,7 @@
     <string name="dining_hall_num">11</string>
     <string name="residence_hall_num">12</string>
     <string name="gym_num">13</string>
+    <string name="pool_num">14</string>
+    <string name="road_num">15</string>
 
 </resources>

@@ -44,4 +44,20 @@
         android:onClick="onBuildingModeClicked"
         android:tag="@string/gym_num" />
 
+    <ImageView
+        android:id="@+id/build_pool"
+        android:layout_width="@dimen/action_bar_size"
+        android:layout_height="@dimen/action_bar_size"
+        android:background="@drawable/pool_b"
+        android:onClick="onBuildingModeClicked"
+        android:tag="@string/pool_num" />
+
+    <ImageView
+        android:id="@+id/road"
+        android:layout_width="@dimen/action_bar_size"
+        android:layout_height="@dimen/action_bar_size"
+        android:background="@drawable/path"
+        android:onClick="onBuildingModeClicked"
+        android:tag="@string/road_num" />
+
 </LinearLayout>

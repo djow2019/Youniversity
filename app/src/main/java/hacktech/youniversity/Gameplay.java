@@ -331,4 +331,9 @@ public class Gameplay extends Activity {
         });
     }
 
+    /* Called when business is clicked */
+    public void onBusinessClicked(View view) {
+
+    }
+
 }

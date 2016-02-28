@@ -17,7 +17,9 @@ import hacktech.youniversity.buildings.Building;
 import hacktech.youniversity.buildings.DiningHall;
 import hacktech.youniversity.buildings.Gym;
 import hacktech.youniversity.buildings.LectureHall;
+import hacktech.youniversity.buildings.Pool;
 import hacktech.youniversity.buildings.ResidenceHall;
+import hacktech.youniversity.buildings.Road;
 
 
 /**
@@ -32,6 +34,8 @@ public class Tile extends ImageView {
     public static final int DINING_HALL = 11;
     public static final int RESIDENCE_HALL = 12;
     public static final int GYM = 13;
+    public static final int POOL = 14;
+    public static final int ROAD = 15;
 
     /* The building on this tile */
     private Building building;
@@ -121,6 +125,12 @@ public class Tile extends ImageView {
             case GYM:
                 setBackground(getResources().getDrawable(R.drawable.gym_o, null));
                 break;
+            case POOL:
+                setBackground(getResources().getDrawable(R.drawable.pool_o, null));
+                break;
+            case ROAD:
+                setBackground(getResources().getDrawable(R.drawable.path_o, null));
+                break;
         }
     }
 
@@ -160,6 +170,14 @@ public class Tile extends ImageView {
                                 building = new Gym(getContext(), input.getText().toString(), coord);
                                 type = Tile.GYM;
                                 break;
+                            case POOL:
+                                building = new Pool(getContext(), input.getText().toString(), coord);
+                                type = Tile.POOL;
+                                break;
+                            case ROAD:
+                                building = new Road(getContext(), input.getText().toString(), coord);
+                                type = Tile.ROAD;
+                                break;
 
                         }
                         updateBackground();
@@ -192,6 +210,14 @@ public class Tile extends ImageView {
                     case GYM:
                         builder.setTitle("Build Gym");
                         builder.setMessage(Gym.description);
+                        break;
+                    case POOL:
+                        builder.setTitle("Build Pool");
+                        builder.setMessage(Pool.description);
+                        break;
+                    case ROAD:
+                        builder.setTitle("Build Road");
+                        builder.setMessage(Road.description);
                         break;
 
                 }

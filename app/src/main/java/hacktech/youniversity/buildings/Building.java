@@ -40,6 +40,12 @@ public abstract class Building {
             case Tile.GYM:
                 background = c.getResources().getDrawable(R.drawable.gym, null);
                 break;
+            case Tile.POOL:
+                background = c.getResources().getDrawable(R.drawable.pool, null);
+                break;
+            case Tile.ROAD:
+                background = c.getResources().getDrawable(R.drawable.path, null);
+                break;
         }
 
     }
