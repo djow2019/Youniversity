@@ -1,22 +1,14 @@
 package graphics;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.media.Image;
-import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 
 import hacktech.youniversity.Building;
@@ -41,13 +33,15 @@ public class Tile extends ImageView {
     // if the user owns the land to build
     boolean owned;
 
-    public static int TILE_SIZE = 64;
+    public static int TILE_SIZE = 128;
 
     public static boolean buildClicked;
 
     Drawable background;
 
     Drawable disabled;
+
+    private int type;
 
     public Tile(Context c, Coordinate coord, int type) {
         super(c);
@@ -65,24 +59,39 @@ public class Tile extends ImageView {
 
         switch (type) {
             case 0:
-                background = getResources().getDrawable(R.drawable.grass_bg, null);
+                background = getResources().getDrawable(R.drawable.grass, null);
                 break;
             case 1:
-                background = getResources().getDrawable(R.drawable.dirt_bg, null);
+                background = getResources().getDrawable(R.drawable.dirt, null);
+                break;
+            case 2:
+                background = getResources().getDrawable(R.drawable.tree, null);
                 break;
             case 10:
-                background = getResources().getDrawable(R.drawable.lecture_building, null);
+                background = getResources().getDrawable(R.drawable.lecture_hall, null);
                 break;
         }
+        this.type = type;
 
         setBackground(background);
 
     }
 
     public void drawOutline() {
-        GradientDrawable temporary = (GradientDrawable) getBackground().getConstantState().newDrawable();
-        temporary.setStroke(1, 0xFF777777);
-        setBackground(temporary);
+        switch (type) {
+            case 0:
+                setBackground(getResources().getDrawable(R.drawable.grass_o, null));
+                break;
+            case 1:
+                setBackground(getResources().getDrawable(R.drawable.dirt_o, null));
+                break;
+            case 2:
+                setBackground(getResources().getDrawable(R.drawable.tree_o, null));
+                break;
+            case 10:
+                setBackground(getResources().getDrawable(R.drawable.lecture_hall_o, null));
+                break;
+        }
     }
 
     private OnClickListener listener = new OnClickListener() {

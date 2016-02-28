@@ -5,34 +5,31 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 
 public class MainMenu extends Activity {
-
-    private Button button_new;
-    private Button button_load;
-    private Button button_options;
-    private Button button_quit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-        button_new = (Button) findViewById(R.id.button_new);
-        button_load = (Button) findViewById(R.id.button_load);
-        button_options = (Button) findViewById(R.id.button_options);
-        button_quit = (Button) findViewById(R.id.button_quit);
-
         ActionBar actionBar = getActionBar();
         actionBar.hide();
 
+        MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.cookie);
+        mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mPlayer.setLooping(true);
+        mPlayer.start();
     }
 
     public void onNewClicked(View view) {
@@ -42,7 +39,7 @@ public class MainMenu extends Activity {
         builder.setPositiveButton("Yeah!", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                startActivity(new Intent(getApplicationContext(), Gameplay.class));
+                startActivity(new Intent(getApplicationContext(), SetupMenu.class));
             }
         });
         builder.setNegativeButton("No, thanks", null);

@@ -3,7 +3,9 @@ package hacktech.youniversity;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.media.AudioManager;
 import android.media.Image;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -69,7 +71,13 @@ public class Gameplay extends Activity {
                 for (int row = 0; row < map.getRowCount(); row++) {
                     for (int col = 0; col < map.getColumnCount(); col++) {
 
-                        Tile tile = new Tile(Gameplay.this, new Coordinate(col, row), random.nextInt(8) == 0 ? 1 : 0);
+                        int type = 0;
+                        if (random.nextInt(8) == 0)
+                            type = 1;
+                        else if (random.nextInt(5) == 0)
+                            type = 2;
+
+                        Tile tile = new Tile(Gameplay.this, new Coordinate(col, row), type);
 
                         map.addView(tile);
                     }
@@ -77,6 +85,11 @@ public class Gameplay extends Activity {
                 }
             }
         });
+
+        MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.cookie);
+        mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mPlayer.setLooping(true);
+        mPlayer.start();
 
     }
 

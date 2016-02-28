@@ -30,7 +30,7 @@ public abstract class Building {
 
         switch (type) {
             case LECTURE_HALL:
-                background = c.getResources().getDrawable(R.drawable.lecture_building, null);
+                background = c.getResources().getDrawable(R.drawable.lecture_hall, null);
                 break;
         }
 

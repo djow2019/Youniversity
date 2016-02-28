@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/map_id">
+    android:layout_height="wrap_content">
 
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-</GridLayout>
+        <GridLayout
+            android:id="@+id/map_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></GridLayout>
+
+    </HorizontalScrollView>
+
+</ScrollView>

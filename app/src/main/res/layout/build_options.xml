@@ -16,7 +16,7 @@
         android:id="@+id/build_lecture_hall"
         android:layout_width="@dimen/action_bar_size"
         android:layout_height="@dimen/action_bar_size"
-        android:background="#ffb30000"
+        android:background="@drawable/lecture_hall"
         android:onClick="onLectureHallClick"
         android:tag="10" />
 
