@@ -38,6 +38,8 @@ public class Tile extends ImageView {
     public static final int GYM = 13;
     public static final int POOL = 14;
     public static final int ROAD = 15;
+    public static final int SAND = 16;
+    public static final int WATER = 17;
 
     /* The building on this tile */
     private Building building;
@@ -87,6 +89,8 @@ public class Tile extends ImageView {
             setBackground(building.getBackground());
             return;
         }
+
+        /* Set the background to the appropriate tile */
         if (background == null) {
             switch (type) {
                 case GRASS:
@@ -97,6 +101,12 @@ public class Tile extends ImageView {
                     break;
                 case TREE:
                     background = getResources().getDrawable(R.drawable.tree, null);
+                    break;
+                case SAND:
+                    background = getResources().getDrawable(R.drawable.sand, null);
+                    break;
+                case WATER:
+                    background = getResources().getDrawable(R.drawable.water, null);
                     break;
             }
         }
@@ -140,7 +150,7 @@ public class Tile extends ImageView {
     private OnClickListener listener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            Log.d("Youniversity", "You clicked on " + coord);
+            Log.d(YouniversityPlatform.NAME, "User clicked on " + coord);
 
             if (Gameplay.inBuildMode && isBuildable()) {
 
@@ -196,7 +206,7 @@ public class Tile extends ImageView {
 
                 }
                 /* Only enable build if the person has enough money */
-                if (requiredPrice <= YouniversityPlatform.profile.getBalance()) {
+                if (requiredPrice <= YouniversityPlatform.getInstance().getProfile().getBalance()) {
 
                     /* Called when the build button is pressed */
                     builder.setPositiveButton("Build!", new DialogInterface.OnClickListener() {
@@ -231,7 +241,7 @@ public class Tile extends ImageView {
 
                             }
                             /* Decrease the balance */
-                            YouniversityPlatform.profile.withdraw(building.getPrice());
+                            YouniversityPlatform.getInstance().getProfile().withdraw(building.getPrice());
                             updateBackground();
                         }
                     });
@@ -279,7 +289,7 @@ public class Tile extends ImageView {
             } else {
                 /* Displays information aboubt the tile*/
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Tile");
+                builder.setTitle("Tile " + coord.toString());
                 builder.setMessage("A building can be constructed here.");
                 builder.setPositiveButton("Okay", null);
                 builder.show();
@@ -287,6 +297,22 @@ public class Tile extends ImageView {
 
         }
     };
+
+    public int getType() {
+        return type;
+    }
+
+    public int getXCoord() {
+        return coord.getX();
+    }
+
+    public int getYCoord() {
+        return coord.getY();
+    }
+
+    public int getBuildingType() {
+        return building != null ? building.getType() : 0;
+    }
 
     /* Sets the background to disabled */
     public void disable() {
@@ -306,6 +332,11 @@ public class Tile extends ImageView {
     /* Gets the Tile's building */
     public Building getBuilding() {
         return building;
+    }
+
+    public void setBuilding(Building building) {
+        this.building = building;
+        updateBackground();
     }
 
 }

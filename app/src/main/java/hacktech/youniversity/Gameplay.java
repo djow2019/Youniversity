@@ -2,6 +2,7 @@ package hacktech.youniversity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -13,8 +14,11 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
-import java.util.Random;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
 
+import graphics.Generation;
 import graphics.Tile;
 import hacktech.youniversity.buildings.Building;
 import hacktech.youniversity.buildings.DiningHall;
@@ -24,6 +28,13 @@ import hacktech.youniversity.buildings.Pool;
 import hacktech.youniversity.buildings.ResidenceHall;
 import hacktech.youniversity.buildings.Road;
 import hacktech.youniversity.platform.YouniversityPlatform;
+
+import static graphics.Tile.DINING_HALL;
+import static graphics.Tile.GYM;
+import static graphics.Tile.LECTURE_HALL;
+import static graphics.Tile.POOL;
+import static graphics.Tile.RESIDENCE_HALL;
+import static graphics.Tile.ROAD;
 
 /**
  * Created by Derek on 2/27/2016.
@@ -49,19 +60,14 @@ public class Gameplay extends Activity {
     /* Determines the last build type that was clicked */
     public static int lastTypeClicked;
 
-    /* Used for randomly getting tiles */
-    private Random random = new Random();
-
+    // instance of this class
     public static Gameplay gameplay;
+
+    // user data
+    private Profile profile;
 
     /* Used to change the action bar at the top */
     private LinearLayout build_bar, action_bar, settings_bar, demolish_bar;
-
-    /* Higher the number less likely it spawns */
-    private static final int DIRT_CHANCE = 8;
-
-    /* Higher the number less likely it spawns */
-    private static final int TREE_CHANCE = 5;
 
     /* Layout of the screen */
     private LinearLayout screen;
@@ -82,8 +88,6 @@ public class Gameplay extends Activity {
 
         setContentView(R.layout.gameplay_screen);
 
-        YouniversityPlatform.inGame = true;
-
         /* Hide the original action bar */
         getActionBar().hide();
 
@@ -103,27 +107,55 @@ public class Gameplay extends Activity {
         /* Initialize reference to screen layout */
         screen = (LinearLayout) findViewById(R.id.gameplay_screen);
 
+        // tile map data
+        final Tile[] tilemap;
+
+        // extra data with the intent
+        Bundle b = getIntent().getExtras();
+
+        // check if data is present
+        if (b != null) {
+
+            // get the data
+            int[] data = b.getIntArray("load");
+
+            // initialize the tile map
+            tilemap = new Tile[data.length / 4];
+
+            // build the tile data
+            for (int i = 0; i < data.length; i += 4) {
+
+                int type = data[i + 0];
+                int x = data[i + 1];
+                int y = data[i + 2];
+                int buildingType = data[i+3];
+
+                // tile locatioin
+                Coordinate c = new Coordinate(x, y);
+
+                // intialize the tile
+                Tile t = new Tile(this, c, type);
+
+                // initialize the building
+                t.setBuilding(loadBuilding(buildingType, c));
+
+                // store it in tile map
+                tilemap[i / 4] = t;
+
+            }
+
+        } else {
+            // no data was found so generate from scratch
+            tilemap = Generation.generate(this, map.getColumnCount(), map.getRowCount());
+        }
+
         /* Update the Tiles on the user interface thread */
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 /* Loop through all possible tiles */
-                for (int row = 0; row < map.getRowCount(); row++) {
-                    for (int col = 0; col < map.getColumnCount(); col++) {
-
-                        /* Default tile type */
-                        int type = Tile.GRASS;
-
-                        if (random.nextInt(DIRT_CHANCE) == 0)
-                            type = Tile.DIRT;
-                        else if (random.nextInt(TREE_CHANCE) == 0)
-                            type = Tile.TREE;
-
-                        Tile tile = new Tile(Gameplay.this, new Coordinate(col, row), type);
-
-                        map.addView(tile);
-                    }
-
+                for (Tile t : tilemap) {
+                    map.addView(t);
                 }
             }
         });
@@ -133,6 +165,8 @@ public class Gameplay extends Activity {
 
         vScroll = (ScrollView) findViewById(R.id.vScroll);
         hScroll = (HorizontalScrollView) findViewById(R.id.hScroll);
+
+        profile = YouniversityPlatform.getInstance().getProfile();
     }
 
     /* Top of the touch event chain, fires first and trickles down after the scroll views fire
@@ -256,9 +290,62 @@ public class Gameplay extends Activity {
         });
     }
 
+    /**
+     * Get a building based on the type specified
+     * @param type - type of the building
+     * @param coord - cooridnate of the building
+     * @return the building instance
+     */
+    public Building loadBuilding(int type, Coordinate coord) {
+        switch (type) {
+            case LECTURE_HALL:
+                return new LectureHall(this, "", coord);
+            case DINING_HALL:
+                return new DiningHall(this, "", coord);
+            case RESIDENCE_HALL:
+                return new ResidenceHall(this, "", coord);
+            case GYM:
+                return new Gym(this, "", coord);
+            case POOL:
+                return new Pool(this, "", coord);
+            case ROAD:
+                return new Road(this, "", coord);
+            default:
+                return null;
+        }
+    }
+
     /* Called when user saves the game */
     public void onSaveClicked(View view) {
-        Log.d("Youniversity", "Save Clicked, but it doesn't do anything");
+        Log.d(YouniversityPlatform.NAME, "Saving!");
+
+        // open an output stream
+        try (FileOutputStream outputStream = openFileOutput(profile.getUniversityName(), Context.MODE_PRIVATE)) {
+
+            // write tile data
+            for (int i = 0; i < map.getChildCount(); i++) {
+
+                // tile being saved
+                Tile t = (Tile) map.getChildAt(i);
+
+                // store the data for each tile in a byte array
+                // 4 ints * 4 bytes each
+                byte[] data = ByteBuffer.allocate(4 * 4)
+                        .putInt(t.getType())
+                        .putInt(t.getXCoord())
+                        .putInt(t.getYCoord())
+                        .putInt(t.getBuildingType())
+                        .array();
+
+                // write the data
+                outputStream.write(data);
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /* Called when clicking quit */
@@ -312,15 +399,13 @@ public class Gameplay extends Activity {
     /* Called when finances is clicked */
     public void onFinancesClicked(View view) {
 
-        Profile p = YouniversityPlatform.profile;
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Finances");
 
-        String body = "Current balance: " + p.getBalance() +
-                "\nEarning: "  + (p.getIncome() + p.getExpenses()) +
-                "\nLosing: " + p.getExpenses() +
-                "\nNet Profit: " + p.getIncome();
+        String body = "Current balance: " + profile.getBalance() +
+                "\nEarning: " + (profile.getIncome() + profile.getExpenses()) +
+                "\nLosing: " + profile.getExpenses() +
+                "\nNet Profit: " + profile.getIncome();
 
         builder.setMessage(body);
         builder.setPositiveButton("Okay", null);
@@ -331,8 +416,8 @@ public class Gameplay extends Activity {
     public void onProfileClicked(View view) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(YouniversityPlatform.profile.getUserName());
-        builder.setMessage(YouniversityPlatform.profile.toString());
+        builder.setTitle(profile.getUserName());
+        builder.setMessage(profile.toString());
         builder.setPositiveButton("Okay", null);
         builder.show();
 
@@ -367,32 +452,32 @@ public class Gameplay extends Activity {
         builder.setTitle("Businesses");
         String format = "Lecture Halls\n";
 
-        for (Building building : YouniversityPlatform.profile.getBuildings()) {
+        for (Building building : profile.getBuildings()) {
             if (building instanceof LectureHall)
                 format += building.toString() + "\n";
         }
         format += "\nResidence Halls\n";
-        for (Building building : YouniversityPlatform.profile.getBuildings()) {
+        for (Building building : profile.getBuildings()) {
             if (building instanceof ResidenceHall)
                 format += building.toString() + "\n";
         }
         format += "\nDining Halls\n";
-        for (Building building : YouniversityPlatform.profile.getBuildings()) {
+        for (Building building : profile.getBuildings()) {
             if (building instanceof DiningHall)
                 format += building.toString() + "\n";
         }
         format += "\nGyms\n";
-        for (Building building : YouniversityPlatform.profile.getBuildings()) {
+        for (Building building : profile.getBuildings()) {
             if (building instanceof Gym)
                 format += building.toString() + "\n";
         }
         format += "\nPools\n";
-        for (Building building : YouniversityPlatform.profile.getBuildings()) {
+        for (Building building : profile.getBuildings()) {
             if (building instanceof Pool)
                 format += building.toString() + "\n";
         }
         format += "\nRoads\n";
-        for (Building building : YouniversityPlatform.profile.getBuildings()) {
+        for (Building building : profile.getBuildings()) {
             if (building instanceof Road)
                 format += building.toString() + "\n";
         }

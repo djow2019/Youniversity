@@ -24,14 +24,20 @@ public class SetupMenu extends Activity {
 
     }
 
-    /* Called when close is clicked */
+    /* Called when close is clicked to start game*/
     public void onCloseClicked(View view) {
 
+        // grab the text data
         EditText user = (EditText) findViewById(R.id.user_name);
         EditText university = (EditText) findViewById(R.id.university_name);
 
-        YouniversityPlatform.profile = new Profile(user.getText().toString(), university.getText().toString());
+        // profile the user created
+        Profile profile = new Profile(user.getText().toString(), university.getText().toString());
 
+        // create a profile and start the game loop
+        YouniversityPlatform.getInstance().start(profile);
+
+        // start the game play
         startActivity(new Intent(getApplicationContext(), Gameplay.class));
 
         /* Ends this activity */

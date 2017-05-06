@@ -5,6 +5,7 @@ import android.content.Context;
 import graphics.Tile;
 import hacktech.youniversity.Coordinate;
 import hacktech.youniversity.Profile;
+import hacktech.youniversity.platform.YouniversityPlatform;
 
 /**
  * Created by Derek on 2/28/2016.
@@ -20,7 +21,7 @@ public class Pool extends Building {
 
     public static String description() {
         return "Let your students cool off on a hot summer day with an luxurious swimming pool!" +
-                "\nMax Occupancy: 20 \nPrice: $500000 Your balance: $" + profile.getBalance();
+                "\nMax Occupancy: 20 \nPrice: $500000 Your balance: $" + YouniversityPlatform.getInstance().getProfile().getBalance();
     }
 
     public String toString() {

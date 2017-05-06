@@ -34,3 +34,4 @@ local.properties
 *.swp
 .idea/workspace.xml
 .idea\workspace.xml
+*.rawproto

@@ -3,12 +3,25 @@ package hacktech.youniversity;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+
+import graphics.Tile;
+import hacktech.youniversity.platform.YouniversityPlatform;
 
 /*
 * The first main activity that is launched when the game is started
@@ -90,7 +103,93 @@ public class MainMenu extends Activity {
 
     }
 
+    /**
+     * Load a game from a save file
+     * @param view - the button that was pressed
+     */
     public void onLoadClicked(View view) {
+
+        // Constructs a window asking for the save file name
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // title of window
+        builder.setTitle("Load");
+
+        // message that appears on window
+        builder.setMessage("Enter the name of the save file: ");
+
+        // set an input text field
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        // cancel the dialog
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        // Try to load the game!
+        builder.setPositiveButton("Load", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int x) {
+
+                // all data in the file
+                ArrayList<Integer> data = new ArrayList<Integer>();
+
+                // open an output stream
+                try (FileInputStream inputStream = openFileInput(input.getText().toString())) {
+
+                    // stores an integer as a byte array
+                    byte[] current = new byte[4];
+
+                    // loop through all available integers
+                    while (inputStream.read(current, 0, 4) != -1) {
+
+                        // store it in data
+                        data.add(ByteBuffer.wrap(current).getInt());
+
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                // check if anything was loaded
+                if (data.size() == 0) {
+                    dialogInterface.cancel();
+                    return;
+                }
+
+                // transition from this activity to the next
+                Intent intent = new Intent(getApplicationContext(), Gameplay.class);
+
+
+                // package the data to send
+                int[] extra = new int[data.size()];
+                for (int i = 0; i < data.size(); i++) {
+                    extra[i] = data.get(i);
+                }
+
+                // pass along the parsed data
+                intent.putExtra("load", extra);
+
+                Log.e(YouniversityPlatform.NAME, "" + intent.getIntArrayExtra("load").length);
+
+                // start gameplay
+                startActivity(intent);
+
+                // Ends this activity
+                finish();
+
+            }
+
+        });
+
+        // display the window
+        builder.show();
 
     }
 

@@ -20,9 +20,8 @@ public abstract class Building {
     private Coordinate coord;
     private int maxOccupancy;
 
-    protected static Profile profile = YouniversityPlatform.profile;
-
     private Drawable background;
+    private int type;
 
     protected Context c;
 
@@ -32,9 +31,11 @@ public abstract class Building {
         this.occupancy = 0;
         this.coord = coord;
         this.maxOccupancy = max;
+        this.type = type;
 
-        profile.addStudentSpotsAvailable(maxOccupancy);
-        profile.addBuilding(this);
+        // Profile saving not implemented yet
+        //YouniversityPlatform.getInstance().getProfile().addStudentSpotsAvailable(maxOccupancy);
+        //YouniversityPlatform.getInstance().getProfile().addBuilding(this);
 
         switch (type) {
             case Tile.LECTURE_HALL:
@@ -61,13 +62,17 @@ public abstract class Building {
 
     public void demolish() {
         coord = null;
-        profile.removeBuilding(this);
-        profile.removeStudentSpotsAvailable(getMaxOccupancy());
+        YouniversityPlatform.getInstance().getProfile().removeBuilding(this);
+        YouniversityPlatform.getInstance().getProfile().removeStudentSpotsAvailable(getMaxOccupancy());
     }
 
     public String toString() {
         return "Name: " + getName() + " Value: $" + getPrice() + " Coord: " + getCoordinate() +
                 " Occupancy: " + getOccupancy() + "/" + getMaxOccupancy();
+    }
+
+    public int getType() {
+        return type;
     }
 
     public int getMaxOccupancy() {

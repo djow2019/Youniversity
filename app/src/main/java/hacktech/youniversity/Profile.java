@@ -33,7 +33,7 @@ public class Profile {
 
         this.universityName = universityName;
         this.userName = userName;
-        balance = 500000;
+        balance = 1000000;
         totalOccupancy = 0;
         maxOccupancy = 0;
         reputation = 0;
